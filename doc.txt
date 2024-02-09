@@ -1,0 +1,36 @@
+This is my first document based on my new terraform code and I am exiceted to say that it is 
+going very well. So well in fact I've been so successful in building my Terraform code and exucuting it 
+that i am write this document to perseve the steps and details of my souce resoucre and the specifc details 
+of my code so it will be avaiable for future refrence and if i forget how to do the Terraform code.
+
+resource "aws_lightsail_instance" "server1" {
+name = "dev-server"
+blueprint_id = "ubuntu_18_04"
+bundle_id = "medium_1_0"
+availability_zone = "us-east-1a"
+user_data = <<-EOF
+ #!/bin/bash
+              sudo apt-get update
+              sudo apt-get install -y apache2
+              sudo systemctl start apache2
+              sudo systemctl enable apache2
+              echo '<h1>This is deployed by Barack </h1>' | sudo tee /var/www/html/index.html
+              EOF
+  
+} 
+
+That should be in the Main.tf file and this :
+terraform {
+  required_providers {
+    aws = {
+        source = "hasicorp/aws"
+        version = "4.61.0"
+
+    }
+  }
+}
+provider "aws" {
+    region = "us-east-1"
+  
+}
+should be in version.tf and now all you have todo is follow the terraform steps.
